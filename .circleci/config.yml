@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: docker pull circleci/php:7.1-browsers
+      - image: codeception/codeception #circleci/php:7.1-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
