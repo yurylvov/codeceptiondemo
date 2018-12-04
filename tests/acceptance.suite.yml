@@ -1,9 +1,11 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver:
+        - PhpBrowser:
             url: http://localhost:8080/
-            browser: chrome
+#        - WebDriver:
+#            url: http://localhost:8080/
+#            browser: chrome
         - Yii2:
             part: orm
             entryScript: index-test.php
