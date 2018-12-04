@@ -129,7 +129,8 @@ class SiteController extends Controller
 	/**
 	 *  My comment
 	 */
-	public function test() {
-		echo "ok;
+	public function test()
+    {
+		echo "ok";
 	}
 }
