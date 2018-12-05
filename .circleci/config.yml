@@ -32,7 +32,7 @@ jobs:
       - run: composer clear-cache
 
       - run: composer install --ignore-platform-reqs --no-scripts
-
+      - run: composer show --installed
       - run: mkdir test-reports
 #      - run:
 #          name: Download Selenium
