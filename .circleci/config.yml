@@ -32,7 +32,8 @@ jobs:
       - run: composer clear-cache
 
       - run: composer install --ignore-platform-reqs --no-scripts
-      - run: composer show --installed
+      - run: composer show --all
+      - run: ls -al vendor/symfony/console/Formatter/
       - run: mkdir test-reports
 #      - run:
 #          name: Download Selenium
