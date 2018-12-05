@@ -30,7 +30,6 @@ jobs:
       - run: ls -al
 
       - run: composer clear-cache
-      - run: composer status -v
 
       - run: composer install
 
