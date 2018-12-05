@@ -28,6 +28,7 @@ jobs:
 
       - run: pwd
       - run: ls -al
+      - run: rm -R vendor
       - run: composer -V
       - run: composer clear-cache
 
