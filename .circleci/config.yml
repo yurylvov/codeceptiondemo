@@ -34,8 +34,7 @@ jobs:
 
       - run: composer install --ignore-platform-reqs --no-scripts
       - run: composer show --installed
-      - run: composer update
-      
+
       - run: ls -al vendor/symfony/console/Formatter/
       - run: mkdir test-reports
 #      - run:
@@ -50,6 +49,7 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
-
+      - run: cd web
+      - run: php -S localhost:8080
       # run tests!
       - run: vendor/bin/codecept run
