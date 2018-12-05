@@ -33,6 +33,7 @@ jobs:
       - run: composer clear-cache
 
       - run: composer install --ignore-platform-reqs --no-scripts
+      - run: composer require guzzlehttp/guzzle
       - run: composer show --installed
 
       - run: ls -al vendor/symfony/console/Formatter/
