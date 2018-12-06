@@ -31,7 +31,10 @@ jobs:
             apk add --no-cache openjdk8
             apk update
             apk upgrade
-            apk add curl
+            apk add curl php7 php7-json php7-phar php7-mbstring php7-openssl
+            ln -s /usr/bin/php7 /usr/local/bin/php
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
+            apk add make gcc g++ python nodejs tar
 
       - run: java -version
       - run:
