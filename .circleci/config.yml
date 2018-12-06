@@ -29,8 +29,10 @@ jobs:
           name: Add Java and cURL
           command: |
             apk add --no-cache openjdk8
+            apk update
+            apk upgrade
             apk add curl
-            
+
       - run: java -version
       - run:
           name: Download Selenium
