@@ -44,6 +44,7 @@ jobs:
           name: Start Selenium
           command: java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
           background: true
+      -run: vendor/bin/codecept run --steps
 
 #      # Download and cache dependencies
 #      - restore_cache:
