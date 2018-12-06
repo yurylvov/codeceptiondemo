@@ -51,6 +51,10 @@ jobs:
       - run:
           name: Installing php dependencies
           command: composer install --ignore-platform-reqs --no-scripts
+      - run: composer require guzzlehttp/guzzle
+      - run: composer show --installed
+      - run: ls -al vendor/symfony/console/Formatter/
+
       - run: vendor/bin/codecept run --steps
 
 #      # Download and cache dependencies
