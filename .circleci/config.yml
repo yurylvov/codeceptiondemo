@@ -26,6 +26,7 @@ jobs:
 #      - run: add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 #      - run: apt-get update
       - run: apk add --no-cache openjdk8
+      - run: java -version
 
 #      # Download and cache dependencies
 #      - restore_cache:
