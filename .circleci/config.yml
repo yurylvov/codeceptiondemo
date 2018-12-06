@@ -25,7 +25,7 @@ jobs:
 #      - run: apt-get install software-properties-common
 #      - run: add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 #      - run: apt-get update
-      - run: apk add oracle-java8-installer
+      - run: apk add --no-cache openjdk8
 
 #      # Download and cache dependencies
 #      - restore_cache:
