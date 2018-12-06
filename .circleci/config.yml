@@ -25,7 +25,12 @@ jobs:
 #      - run: apt-get install software-properties-common
 #      - run: add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 #      - run: apt-get update
-      - run: apk add --no-cache openjdk8
+      - run:
+          name: Add Java and cURL
+          command: |
+            apk add --no-cache openjdk8
+            apk add curl
+            
       - run: java -version
       - run:
           name: Download Selenium
