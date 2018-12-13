@@ -1,0 +1,93 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: docker:18.01.0-ce-git #circleci/php:7.1-browsers
+    environment:
+      COMPOSER_VERSION: 1.6.5
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mysql:9.4
+
+    working_directory: /app
+
+    steps:
+      - checkout
+
+      # install java 8
+#      - run: echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" > debconf.txt
+#      - run: debconf-set-selections debconf.txt
+#      - run: apt-get install software-properties-common
+#      - run: add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+#      - run: apt-get update
+      - run:
+          name: Add Java and cURL
+          command: |
+            apk add --no-cache openjdk8
+            apk update
+            apk upgrade
+            apk add curl php7 php7-json php7-phar php7-mbstring php7-openssl
+            ln -s /usr/bin/php7 /usr/local/bin/php
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
+            apk add make gcc g++ python nodejs tar
+
+      - run: java -version
+      - run:
+          name: Download Selenium
+          command: |
+            mkdir test-reports
+            touch test-reports/selenium.log
+            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium
+          command: java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
+          background: true
+      - run:
+          name: Installing php dependencies
+          command: composer install --ignore-platform-reqs --no-scripts
+#      - run: composer require guzzlehttp/guzzle
+      - run: composer show --installed
+      - run: ls -al vendor/symfony/console/Formatter/
+
+      - run: vendor/bin/codecept run --steps
+
+#      # Download and cache dependencies
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "composer.json" }}
+#          # fallback to using the latest cache if no exact match is found
+#          - v1-dependencies-
+#      - run: pwd
+#      - run: ls -al
+#      - run: rm -R vendor
+#      - run: composer -V
+#      - run: composer clear-cache
+#
+#      - run: composer install --ignore-platform-reqs --no-scripts
+#      - run: composer require guzzlehttp/guzzle
+#      - run: composer show --installed
+#
+#      - run: ls -al vendor/symfony/console/Formatter/
+#      - run: mkdir test-reports
+##      - run:
+##          name: Download Selenium
+##          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+##      - run:
+##          name: Start Selenium
+##          command: java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
+##          background: true
+#
+#      - save_cache:
+#          paths:
+#            - ./vendor
+#          key: v1-dependencies-{{ checksum "composer.json" }}
+##      - run: cd web
+##      - run: php -S localhost:8080
+#      # run tests!
+#      - run: vendor/bin/codecept run
